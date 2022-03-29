@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import data from "./Data";
+import { useState } from "react";
+import CardForm from "./components/CardForm";
+const App = () => {
+  const { cards } = data;
+  // console.log(data);
+  const [cardItem, setCardItem] = useState(data.cards);
 
-function App() {
+  const onDelete = (card) => {
+    setCardItem(cardItem.filter((x) => x.id !== card.id));
+  };
+
+  const addCard = (cardName, cardPrice, modelname) => {
+    let newCardItem = [...cardItem];
+    newCardItem = [
+      {
+        name: cardName,
+        price: parseInt(cardPrice),
+        model_name: modelname,
+      },
+      ...newCardItem,
+    ];
+    setCardItem(newCardItem);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <CardForm addCard={addCard} />
+      <Main cards={cards} onDelete={onDelete} cardItem={cardItem} />
     </div>
   );
-}
+};
 
 export default App;
