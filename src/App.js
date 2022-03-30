@@ -10,7 +10,7 @@ const App = () => {
   const [cardItem, setCardItem] = useState(data.cards);
 
   const onDelete = (card) => {
-    setCardItem(cardItem.filter((x) => x.id !== card.id));
+    setCardItem(cardItem.filter((x) => x.name !== card.name));
   };
 
   const addCard = (cardName, cardPrice, modelname) => {
